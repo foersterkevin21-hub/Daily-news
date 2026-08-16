@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Today's News</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background: #f5f5f5;
+            color: #222;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 5px;
+        }
+
+        #date {
+            text-align: center;
+            color: #666;
+            margin-bottom: 35px;
+        }
+
+        .section {
+            background: white;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        h2 {
+            margin-top: 0;
+        }
+
+        li {
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+
+        #loading {
+            text-align: center;
+            color: #666;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Today's News</h1>
+
+    <div id="date"></div>
+
+    <div id="loading">
+        Loading today's news...
+    </div>
+
+    <div id="news" style="display:none;">
+
+        <div class="section">
+            <h2>🌎 World</h2>
+            <ul id="world"></ul>
+        </div>
+
+        <div class="section">
+            <h2>🇺🇸 United States</h2>
+            <ul id="us"></ul>
+        </div>
+
+    </div>
+
+    <script>
+        // Show today's date
+        const today = new Date();
+
+        document.getElementById("date").textContent =
+            today.toLocaleDateString("en-US", {
+                weekday: "long",
+                year: "numeric",
+                month: "long",
+                day: "numeric"
+            });
+
+
+        // Temporary news
+        // We'll replace this with the AI later.
+
+        const worldNews = [
+            "World news will appear here.",
+            "The AI will automatically find today's biggest stories.",
+            "Each story will be summarized into a short bullet."
+        ];
+
+        const usNews = [
+            "US news will appear here.",
+            "The AI will automatically find today's biggest US stories.",
+            "Each story will be summarized into a short bullet."
+        ];
+
+
+        function displayNews() {
+
+            const worldList = document.getElementById("world");
+            const usList = document.getElementById("us");
+
+            worldNews.forEach(story => {
+                const li = document.createElement("li");
+                li.textContent = story;
+                worldList.appendChild(li);
+            });
+
+            usNews.forEach(story => {
+                const li = document.createElement("li");
+                li.textContent = story;
+                usList.appendChild(li);
+            });
+
+            document.getElementById("loading").style.display = "none";
+            document.getElementById("news").style.display = "block";
+        }
+
+        displayNews();
+    </script>
+
+</body>
+</html>
