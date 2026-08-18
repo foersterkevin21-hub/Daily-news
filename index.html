@@ -1,168 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Today's News</title>
-
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 40px 20px;
-            background: #f5f5f5;
-            color: #222;
-        }
-
-        h1 {
-            text-align: center;
-            margin-bottom: 5px;
-        }
-
-        #date {
-            text-align: center;
-            color: #666;
-            margin-bottom: 35px;
-        }
-
-        .section {
-            background: white;
-            padding: 25px;
-            margin-bottom: 20px;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-        }
-
-        h2 {
-            margin-top: 0;
-        }
-
-        li {
-            margin-bottom: 12px;
-            line-height: 1.5;
-        }
-
-        #loading {
-            text-align: center;
-            color: #666;
-        }
-    </style>
-</head>
-
-<body>
-
-    <h1>Today's News</h1>
-
-    <div id="date"></div>
-
-    <div id="loading">
-        Loading today's news...
-    </div>
-
-    <div id="news" style="display:none;">
-
-        <div class="section">
-            <h2>🌎 World</h2>
-            <ul id="world"></ul>
-        </div>
-
-        <div class="section">
-            <h2>🇺🇸 United States</h2>
-            <ul id="us"></ul>
-        </div>
-
-    </div>
-
-    <script>
-        // Show today's date
-        const today = new Date();
-
-        document.getElementById("date").textContent =
-            today.toLocaleDateString("en-US", {
-                weekday: "long",
-                year: "numeric",
-                month: "long",
-                day: "numeric"
-            });
-
-
-        // Temporary news
-        async function loadNews() {
-    try {
-        const response = await fetch(
-            "https://daily-news.foersterkevin21.workers.dev/"
-        );
-
-        const data = await response.json();
-
-        const clean = data.answer
-            .replace(/```json/g, "")
-            .replace(/```/g, "")
-            .trim();
-
-        const news = JSON.parse(clean);
-
-        document.getElementById("world").innerHTML =
-            news.world
-                .map(story => `<li>${story}</li>`)
-                .join("");
-
-        document.getElementById("us").innerHTML =
-            news.us
-                .map(story => `<li>${story}</li>`)
-                .join("");
-
-        document.getElementById("loading").style.display = "none";
-        document.getElementById("news").style.display = "block";
-
-    } catch (error) {
-        console.error(error);
-
-        document.getElementById("loading").textContent =
-            "Unable to load today's news.";
+{
+  "candidates": [
+    {
+      "content": {
+        "parts": [
+          {
+            "text": "{\n  \"world\": [\n    \"South Africa's ruling African National Congress (ANC) lost its parliamentary majority for the first time in 30 years following national elections. (BBC News)\",\n    \"Israeli military forces expanded operations into central Rafah, deepening humanitarian concerns and drawing international criticism. (Reuters)\",\n    \"Russia launched a renewed ground offensive in Ukraine's northeastern Kharkiv region, prompting widespread evacuations. (AP News)\",\n    \"India concluded its massive, multi-week general election with hundreds of millions of citizens casting their ballots. (Al Jazeera)\",\n    \"Iran announced an upcoming presidential election following the fatal helicopter crash involving President Ebrahim Raisi. (CNN)\"\n  ],\n  \"us\": [\n    \"Former President Donald Trump was convicted on 34 felony counts in his New York falsifying business records criminal trial. (Associated Press)\",\n    \"The federal gun trial for Hunter Biden, son of President Joe Biden, officially began in Wilmington, Delaware. (NBC News)\",\n    \"A series of powerful tornadoes and severe weather outbreaks struck the Central and Southern U.S., causing significant damage and fatalities. (The Weather Channel)\",\n    \"The Biden administration finalized plans for an executive order limiting asylum processing at the U.S.-Mexico border. (The Wall Street Journal)\",\n    \"The Federal Reserve signaled interest rates will remain elevated as inflation measures stay above the central bank's target. (Bloomberg)\"\n  ]\n}",
+            "thoughtSignature": "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"
+          }
+        ],
+        "role": "model"
+      },
+      "finishReason": "STOP",
+      "index": 0
     }
+  ],
+  "usageMetadata": {
+    "promptTokenCount": 165,
+    "candidatesTokenCount": 304,
+    "totalTokenCount": 1407,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 165
+      }
+    ],
+    "thoughtsTokenCount": 938,
+    "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.6-flash",
+  "responseId": "hbmDatmCKYnVjMcPwvm7oAo"
 }
-
-loadNews();
-
-        const worldNews = [
-            "World news will appear here.",
-            "The AI will automatically find today's biggest stories.",
-            "Each story will be summarized into a short bullet."
-        ];
-
-        const usNews = [
-            "US news will appear here.",
-            "The AI will automatically find today's biggest US stories.",
-            "Each story will be summarized into a short bullet."
-        ];
-
-
-        function displayNews() {
-
-            const worldList = document.getElementById("world");
-            const usList = document.getElementById("us");
-
-            worldNews.forEach(story => {
-                const li = document.createElement("li");
-                li.textContent = story;
-                worldList.appendChild(li);
-            });
-
-            usNews.forEach(story => {
-                const li = document.createElement("li");
-                li.textContent = story;
-                usList.appendChild(li);
-            });
-
-            document.getElementById("loading").style.display = "none";
-            document.getElementById("news").style.display = "block";
-        }
-
-        displayNews();
-    </script>
-
-</body>
-</html>
